@@ -11,13 +11,13 @@ class CommitCodeRequest(models.Model):
     end_time = models.DateTimeField('结束时间',default = timezone.now)
     b_expired = models.BooleanField('是否过期', default=0)
 
+    def init_end_time(self):
+        self.end_time = self.start_time + datetime.timedelta(weeks=1)
+
     def __str__(self):
         return self.commit_code
 
     '''
     def __init__(self):
         self.init_end_time()
-
-    def init_end_time(self):
-        self.end_time = self.start_time + datetime.timedelta(weeks=1)
         '''
