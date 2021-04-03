@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
     # ex: /request_commit_code/
-    path('', views.index, name='index'),
+    path('', views.show_request, name='show_request'),
     # ex: /request_commit_code/login/
-    path('login', views.login, name='login'),
+    #path(r'^$', views.show_request, name='show_request'),
 ]

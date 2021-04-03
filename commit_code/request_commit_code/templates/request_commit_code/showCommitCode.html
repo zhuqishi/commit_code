@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}blog titles{% endblock %}
+
+{% block content %}
+<div class="row text-center vertical-middle-sm">
+    <h1>显示提交码</h1>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-md-8">
+    <ul>
+        {% for commitCode in commitCodes %}
+            <li>{{ commitCode.code_path }}</li>
+            <li>{{ commitCode.commit_code }}</li>
+        {% endfor %}
+    </ul>
+    </div>
+</div>
+{% endblock %}

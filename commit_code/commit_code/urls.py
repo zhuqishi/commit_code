@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
+    path('', include('request_commit_code.urls')),
     path('request_commit_code/', include('request_commit_code.urls')),
     path('admin/', admin.site.urls),
 ]
