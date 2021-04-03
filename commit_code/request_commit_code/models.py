@@ -2,20 +2,19 @@ import datetime
 from django.db import models
 from django.utils import timezone
 
+
+def request_commit_code():
+    #保留默认值，实际应该使用公司对应的接口#
+    return "HIK_TEST"
+
 class CommitCodeRequest(models.Model):
-    commit_code = models.CharField('提交码', max_length=50, default = "invalid")
+    commit_code = models.CharField('提交码', max_length=50, default = request_commit_code())
     applicant = models.CharField('申请者', max_length=20)
     users = models.CharField('用户', max_length=100)
     code_path = models.CharField('代码路径', max_length=200)
     start_time = models.DateTimeField('开始时间', default = timezone.now)
     end_time = models.DateTimeField('结束时间', default = datetime.datetime.now()+datetime.timedelta(weeks=2))
     last_request_time = models.DateTimeField('最近申请时间', default = timezone.now)
-
-    def request_commit_code(self):
-        if self.commit_code == "invalid":
-            self.commit_code = "HIK_Test"
-        return self.commit_code
-    request_commit_code.short_description = '提交码'
 
     def b_available(self):
         cur_time = timezone.now()
