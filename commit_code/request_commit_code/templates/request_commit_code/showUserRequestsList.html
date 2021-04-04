@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}用户提交码申请列表{% endblock %}
+
+{% block content %}
+<div class="row text-center vertical-middle-sm">
+    <h1>申请记录列表</h1>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-md-8">
+    <ul>
+        {% for userData in userDataList %}
+            <li>{{userData.commit_code}}</li>
+            <li>{{userData.code_path}}</li>
+            <li>{{userData.start_time}}</li>
+            <li>{{userData.end_time}}</li>
+        {% endfor %}
+    </ul>
+    </div>
+</div>
+{% endblock %}
