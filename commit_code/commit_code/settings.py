@@ -32,7 +32,6 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'simpleui',
     'request_commit_code.apps.RequestCommitCodeConfig',
     'django.contrib.admin',
     'django.contrib.auth',

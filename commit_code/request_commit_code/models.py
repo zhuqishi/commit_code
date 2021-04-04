@@ -5,7 +5,7 @@ from django.utils import timezone
 
 def request_commit_code():
     #保留默认值，实际应该使用公司对应的接口#
-    return "HIK_TEST"
+    return "HIK_TEST12345"
 
 class CommitCodeRequest(models.Model):
     commit_code = models.CharField('提交码', max_length=50, default = request_commit_code())
