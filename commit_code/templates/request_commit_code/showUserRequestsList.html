@@ -1,22 +1,69 @@
 {% extends "base.html" %}
-
-{% block title %}用户提交码申请列表{% endblock %}
-
-{% block content %}
-<div class="row text-center vertical-middle-sm">
-    <h1>申请记录列表</h1>
-</div>
-
-<div class="row">
-    <div class="col-xs-12 col-md-8">
-    <ul>
+{% load static %}
+{% block title %}用户提交码申请列表{% endblock %} {% block content %}
+<div>
+    <p class="text-right"><!--button class="btn btn-primary">add column</button-->
+        <button id= "add_column" onclick="add_column()" class="btn btn-primary"> 申请提交码</button>
+    </p> 
+    <table class="table table-hover">
+        <tr> 
+            <td>用户</td>
+            <td>提交码</td>
+            <td>代码路径</td> 
+            <td>开始时间</td> 
+            <td>结束时间</td> 
+        </tr>
         {% for userData in userDataList %}
-            <li>{{userData.commit_code}}</li>
-            <li>{{userData.code_path}}</li>
-            <li>{{userData.start_time}}</li>
-            <li>{{userData.end_time}}</li>
+        <tr>
+            <td>{{userData.users}}</td> 
+            <td>{{userData.commit_code}}</td> 
+            <td>{{userData.code_path}}</td> 
+            <td>{{userData.start_time}}</td> 
+            <td>{{userData.end_time}}</td> 
+        </tr>
+        {% empty %} 
+        <p>您没有申请过提交码。</p> 
         {% endfor %}
-    </ul>
-    </div>
+    </table> 
 </div>
+
+<script type="text/javascript" src='{% static "js/jquery.js" %}'></script> 
+<script type="text/javascript" src="{% static 'js/layer.js'%}"></script> 
+<script type="text/javascript">
+    function add_column() {
+        var index = layer.open({
+            type: 1,
+            skin: "layui-layer-rim",
+            area: ["400px", "200px"],
+            title: "申请提交码",
+            content: '<div class="text-center" style="margin-top:20px">\
+                <p> 代码路径</p>\
+                    <p>{{ userData.code_path }}</p>\
+</div > ',
+            btn: ['确定', '取消'],
+            yes: function (index, layero) {
+                user = userData.users;
+                code_path = $('#id_column').val();
+                $.ajax({
+                    url: '{% url "request_commit_code:request_commit_code({{userData.users, userData.code_path}})"',
+                    type: 'POST',
+                    data: { "users": user, "code_path": code_path},
+                    success: function (e) {
+                        if (e == "1") {
+                            parent.location.reload();
+                            layer.msg("good");
+                        } else {
+                            layer.msg("此栏目已有，请更换名称")
+                        }
+                    },
+                });
+            },
+            btn2: function (index, layero) {
+                layer.close(index);
+            }
+        });
+    }
+
+</script>
+
 {% endblock %}

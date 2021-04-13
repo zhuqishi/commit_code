@@ -12,9 +12,8 @@
                 {% if user.is_authenticated %}
                 <li>
                     <div class="dropdown" style="margin-top:8px">
-                        <button class='btn btn-default dropdown-toggle' type='button' id='dropdownMenu' data-toggle='dropdown'>{{ user.username }}
-                            <span class='caret'></span> 
-                        </button>
+                        <a class='btn btn-default dropdown-toggle' id='dropdownMenu' >{{ user.username }}
+                        </a>
                         <ul class="dropdown-menu">
                         </ul> 
                     </div>

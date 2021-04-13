@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}用户列表{% endblock %} {% block content %}
+{% block title %}用户提交码申请列表{% endblock %} {% block content %}
 <div>
     <p class="text-right"><!--button class="btn btn-primary">add column</button-->
         <button id= "add_column" onclick="add_column()" class="btn btn-primary"> 申请提交码</button>
@@ -13,16 +13,16 @@
             <td>开始时间</td> 
             <td>结束时间</td> 
         </tr>
-        {% for CommitCodeRequest in CommitCodeRequests %}
+        {% for userData in userDataList %}
         <tr>
-            <td>{{CommitCodeRequest.users}}</td> 
-            <td>{{CommitCodeRequest.commit_code}}</td> 
-            <td>{{CommitCodeRequest.code_path}}</td> 
-            <td>{{CommitCodeRequest.start_time}}</td> 
-            <td>{{CommitCodeRequest.end_time}}</td> 
+            <td>{{userData.users}}</td> 
+            <td>{{userData.commit_code}}</td> 
+            <td>{{userData.code_path}}</td> 
+            <td>{{userData.start_time}}</td> 
+            <td>{{userData.end_time}}</td> 
         </tr>
         {% empty %} 
-        <p>您没有申请过提交码。</p> 
+        <p>还没有设置栏目，太懒了。</p> 
         {% endfor %}
     </table> 
 </div>
@@ -35,18 +35,18 @@
             type: 1,
             skin: "layui-layer-rim",
             area: ["400px", "200px"],
-            title: "申请提交码",
+            title: "新增栏目",
             content: '<div class="text-center" style="margin-top:20px">\
-                <p> 代码路径</p>\
-                    <p>{{ userData.code_path }}</p>\
+                <p> 请输入新的栏目名称</p>\
+                    <p>{{ column_form.column }}</p>\
 </div > ',
             btn: ['确定', '取消'],
             yes: function (index, layero) {
-                code_path = $('#id_column').val();
+                column_name = $('#id_column').val();
                 $.ajax({
-                    url: '{% url "request_commit_code:request_commit_code({{userData.users}})"',
+                    url: '{% url "article:article_column" %}',
                     type: 'POST',
-                    data: { "code_path": code_path },
+                    data: { "column": column_name },
                     success: function (e) {
                         if (e == "1") {
                             parent.location.reload();
@@ -64,4 +64,5 @@
     }
 
 </script>
+
 {% endblock %}
